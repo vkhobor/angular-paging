@@ -1,0 +1,42 @@
+<div style="margin-bottom: 20px">
+  <label for="showEvenValues">Only Show Even Values</label>
+  <input
+    type="checkbox"
+    id="showEvenValues"
+    [ngModel]="onlyShowEvenValue"
+    (ngModelChange)="onlyShowEven($event)"
+  />
+</div>
+
+<input
+  type="checkbox"
+  id="selectAllItems"
+  [checked]="pagerSelection.currentPageSelected$ | async"
+  (change)="handleSelectAllItemsChange($event)"
+/>
+<label for="selectAllItems">Select All Items</label>
+<ul>
+  @for (item of pager.currentPage; track item.id) {
+  <li>
+    <input
+      type="checkbox"
+      id="item{{ item.id }}"
+      [checked]="selection.isSelectedMultiple([item])"
+      (change)="handleSelectItemChange($event, item)"
+    />
+    <label for="item{{ item.id }}">
+      <span>ID: {{ item.id }}</span>
+      <span>Name: {{ item.name }}</span>
+      <span>Value: {{ item.value }}</span>
+    </label>
+  </li>
+  }
+</ul>
+<div>
+  <button [disabled]="!pager.hasPreviousPage" (click)="pager.previousPage()">
+    Previous
+  </button>
+  <button [disabled]="!pager.hasNextPage" (click)="pager.nextPage()">
+    Next
+  </button>
+</div>
