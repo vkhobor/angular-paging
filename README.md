@@ -1,5 +1,7 @@
 # AngularPaging
 
+# DEMO : https://angular-paging.pages.dev/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
 
 ## Development server
