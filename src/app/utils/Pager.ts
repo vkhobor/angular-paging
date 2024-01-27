@@ -15,7 +15,11 @@ export class Pager<T> {
   currentPage$: BehaviorSubject<T[]> = new BehaviorSubject([] as T[]);
   totalPages$ = new BehaviorSubject(0);
 
-  constructor() {
+  constructor(source: T[] | Observable<T[]>, pageSize = 10, currentPage = 1) {
+    this.setDataSource(source);
+    this.setPageSize(pageSize);
+    this.setPage(currentPage);
+
     combineLatest([this.source$, this.pageSize$, this.currentPageNumber$])
       .pipe(
         map(([data, pageSize, currentPageNumber]) =>

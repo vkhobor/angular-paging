@@ -7,6 +7,12 @@ import { Filter } from '../../utils/Filter';
 import { FormsModule, NgModel } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
+interface Item {
+  id: number;
+  name: string;
+  value: number;
+}
+
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -15,9 +21,9 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent {
-  filter = new Filter<any>();
-  pager = new Pager<any>();
-  selection = new Selection<any>();
+  filter = new Filter<Item>(this.dataService.data$);
+  pager = new Pager<Item>(this.filter.filtered$, 10, 1);
+  selection = new Selection<Item>(this.filter.filtered$);
   pagerSelection = new PageSelection(this.pager, this.selection);
 
   onlyShowEvenValue = false;
@@ -34,15 +40,7 @@ export class TableComponent {
     }
   }
 
-  constructor(dataService: DataService) {
-    this.filter.setDataSource(dataService.data$);
-
-    this.pager.setDataSource(this.filter.filtered$);
-    this.pager.setPageSize(10);
-    this.pager.setPage(1);
-
-    this.selection.setDataSource(this.filter.filtered$);
-
+  constructor(private dataService: DataService) {
     this.selection.selected$.subscribe((selected) => {
       if (selected.size > 15) {
         alert('You can select only 15 items');
@@ -58,7 +56,7 @@ export class TableComponent {
     }
   }
 
-  handleSelectItemChange(event: Event, item: any) {
+  handleSelectItemChange(event: Event, item: Item) {
     if (!this.selection.isSelectedMultiple([item])) {
       this.selection.selectMultiple([item]);
     } else {

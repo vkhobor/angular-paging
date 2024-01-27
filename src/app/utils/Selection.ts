@@ -4,7 +4,9 @@ export class Selection<T> {
   selected$ = new BehaviorSubject(new Set<T>());
   source$ = new BehaviorSubject([] as T[]);
 
-  constructor() {}
+  constructor(source: T[] | Observable<T[]>) {
+    this.setDataSource(source);
+  }
 
   setDataSource(source: T[] | Observable<T[]>) {
     if (source instanceof Observable) {

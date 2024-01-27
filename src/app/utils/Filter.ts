@@ -17,7 +17,9 @@ export class Filter<T> {
     this.source$.next(source);
   }
 
-  constructor() {
+  constructor(source: T[] | Observable<T[]>) {
+    this.setDataSource(source);
+
     combineLatest([this.source$, this.filters$])
       .pipe(
         map(([source, filters]) =>

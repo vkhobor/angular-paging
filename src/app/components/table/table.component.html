@@ -8,32 +8,44 @@
   />
 </div>
 
-<input
-  type="checkbox"
-  id="selectAllItems"
-  [checked]="pagerSelection.currentPageSelected$ | async"
-  (change)="handleSelectAllItemsChange($event)"
-/>
-<label for="selectAllItems">Select All Items</label>
-<ul>
-  @for (item of pager.currentPage; track item.id) {
-  <li>
-    <input
-      type="checkbox"
-      id="item{{ item.id }}"
-      [checked]="selection.isSelectedMultiple([item])"
-      (change)="handleSelectItemChange($event, item)"
-    />
-    <label for="item{{ item.id }}">
-      <span>ID: {{ item.id }}</span>
-      <span>Name: {{ item.name }}</span>
-      <span>Value: {{ item.value }}</span>
-    </label>
-  </li>
+<table style="width: 600px">
+  <thead>
+    <th>
+      <input
+        type="checkbox"
+        id="selectAllItems"
+        [checked]="pagerSelection.currentPageSelected$ | async"
+        (change)="handleSelectAllItemsChange($event)"
+      />
+    </th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Value</th>
+  </thead>
+  @for (item of pager.currentPage; track item.id){
+  <tr>
+    <td>
+      <input
+        type="checkbox"
+        id="item{{ item.id }}"
+        [checked]="selection.isSelectedMultiple([item])"
+        (change)="handleSelectItemChange($event, item)"
+      />
+    </td>
+    <td>
+      <label for="item{{ item.id }}">{{ item.id }} </label>
+    </td>
+    <td>{{ item.name }}</td>
+    <td>{{ item.value }}</td>
+  </tr>
   }
-</ul>
-<div>
-  <button [disabled]="!pager.hasPreviousPage" (click)="pager.previousPage()">
+</table>
+<div style="padding-top: 15px; padding-left: 15px">
+  <button
+    style="margin-right: 20px"
+    [disabled]="!pager.hasPreviousPage"
+    (click)="pager.previousPage()"
+  >
     Previous
   </button>
   <button [disabled]="!pager.hasNextPage" (click)="pager.nextPage()">

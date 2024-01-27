@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  data$: Observable<any[]>;
+  data$: Observable<{ id: number; name: string; value: number }[]>;
 
   constructor() {
     this.data$ = new Observable((subscriber) => {
