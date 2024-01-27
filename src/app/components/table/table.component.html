@@ -51,4 +51,10 @@
   <button [disabled]="!pager.hasNextPage" (click)="pager.nextPage()">
     Next
   </button>
+
+  <span style="margin-left: 20px">
+    Page {{ pager.currentPageNumber + 1 }} of {{ pager.totalPages }}
+  </span>
+
+  <span style="margin-left: 20px"> Total Items: {{ pager.totalItems }} </span>
 </div>

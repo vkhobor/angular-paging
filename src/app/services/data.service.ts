@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +10,7 @@ export class DataService {
   constructor() {
     this.data$ = new Observable((subscriber) => {
       setTimeout(() => {
-        subscriber.next(this.generateRandomData(100));
+        subscriber.next(this.generateRandomData(100_000));
         subscriber.complete();
       }, 1000);
     });

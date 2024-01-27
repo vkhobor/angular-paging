@@ -53,6 +53,10 @@ export class Pager<T> {
     return this.pageSize$.value;
   }
 
+  get totalPages() {
+    return this.totalPages$.value;
+  }
+
   get hasPreviousPage() {
     return this.currentPageNumber > 1;
   }
@@ -63,6 +67,10 @@ export class Pager<T> {
 
   get currentPageNumber() {
     return this.currentPageNumber$.value;
+  }
+
+  get totalItems() {
+    return this.source$.value.length;
   }
 
   setDataSource(source: T[] | Observable<T[]>) {
